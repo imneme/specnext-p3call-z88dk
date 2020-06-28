@@ -41,6 +41,9 @@ _zxn_rom3call:
 	;; stack: continuation, retaddr
 	push	ix		; stash ix (used by zsdcc, must be preserved)
 	;; stack: continuation, retaddr, ix
+	push	iy		; also stash iy (may be messed with by newlib)
+	;; stack: continuation, retaddr, ix, iy
+	ld	iy, $5c3a       ; set back to the proper value, ERR_NR
 	ld	ixh, d		; load ix for the call
 	ld	ixl, e		;
 	ld	de, afterwards  ; put our own return address on the stack
@@ -51,6 +54,8 @@ _zxn_rom3call:
 	exx			; move primary registers into place
 	ret			; indirect jump to rom address via return
 afterwards:
+	;; stack: continuation, retaddr, ix, iy
+	pop	iy		; recover iy
 	;; stack: continuation, retaddr, ix
 	exx
 	ld	d,ixh		; stash ix into de

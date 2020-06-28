@@ -42,6 +42,9 @@ _zxn_p3call:
 	;; stack: continuation, retaddr
 	push	ix		; stash ix (used by zsdcc, must be preserved)
 	;; stack: continuation, retaddr, ix
+	push	iy		; also stash iy (may be messed with by newlib)
+	ld	iy, $5c3a       ; set back to the proper value, ERR_NR
+	;; stack: continuation, retaddr, ix, iy
 	push	hl		; load ix for +3dos (in hl as well for dot
 	pop	ix		; commands
 
@@ -49,6 +52,8 @@ _zxn_p3call:
 	defb	$94		; M_P3CALL
 
 	exx
+	;; stack: continuation, retaddr, ix, iy
+	pop	iy		; recover iy
 	;; stack: continuation, retaddr, ix
 	pop	ix		; recover ix (to make zsdcc happy)
 	;; stack: continuation, retaddr
