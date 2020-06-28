@@ -18,53 +18,56 @@ struct zxn_ide_regset {
     short ix;
 };
 
-short zxn_p3cont_a(short af, short bc, short de, short hl,
-		   short ix) __smallc;
+/* The "continuation function" provided to zxn_p3call is passed all the
+ * registers resulting from the call, and chooses what to return.
+ * Multiple predefined continuation functions are provided, but you
+ * are free to write your own.  It *must* have the following signature.
+ *
+ * The predefined ones are explicitly coded in assembler and should not
+ * be called directly as they expect a specific stack configuration.
+ */
 
-short zxn_p3cont_a_err(short af, short bc, short de, short hl,
-		       short ix) __smallc;
+#define zxn_p3call_define_cont(name)				\
+    short name(short af, short bc, short de, short hl,		\
+		       short ix) __smallc
 
-short zxn_p3cont_bc(short af, short bc, short de, short hl,
-		    short ix) __smallc;
-
-short zxn_p3cont_bc_err(short af, short bc, short de, short hl,
-			short ix) __smallc;
-
-short zxn_p3cont_de_err(short af, short bc, short de, short hl,
-			short ix) __smallc;
-
-long zxn_p3cont_dehl(short af, short bc, short de, short hl,
-		     short ix) __smallc;
-
-long zxn_p3cont_dehl_err(short af, short bc, short de, short hl,
-			 short ix) __smallc;
-
-short zxn_p3cont_e(short af, short bc, short de, short hl,
-		   short ix) __smallc;
-
-short zxn_p3cont_e_err(short af, short bc, short de, short hl,
-		       short ix) __smallc;
-
-short zxn_p3cont_err(short af, short bc, short de, short hl,
-		  short ix) __smallc;
-
-short zxn_p3cont_generic(short af, short bc, short de, short hl,
-			 short ix) __smallc;
-
-short zxn_p3cont_hl(short af, short bc, short de, short hl,
-		    short ix) __smallc;
-
-short zxn_p3cont_hl_err(short af, short bc, short de, short hl,
-			short ix) __smallc;
-
-short zxn_p3cont_ix(short af, short bc, short de, short hl,
-		    short ix) __smallc;
-
-short zxn_p3cont_ix_err(short af, short bc, short de, short hl,
-			short ix) __smallc;
-
-short zxn_p3cont_null(short af, short bc, short de, short hl,
-		      short ix) __smallc;
+zxn_p3call_define_cont(zxn_p3cont_a);
+zxn_p3call_define_cont(zxn_p3cont_a_err);
+zxn_p3call_define_cont(zxn_p3cont_af);
+zxn_p3call_define_cont(zxn_p3cont_af_err);
+zxn_p3call_define_cont(zxn_p3cont_aliases);
+zxn_p3call_define_cont(zxn_p3cont_aliases_err);
+zxn_p3call_define_cont(zxn_p3cont_b);
+zxn_p3call_define_cont(zxn_p3cont_b_err);
+zxn_p3call_define_cont(zxn_p3cont_bc);
+zxn_p3call_define_cont(zxn_p3cont_bc_err);
+zxn_p3call_define_cont(zxn_p3cont_bcde);
+zxn_p3call_define_cont(zxn_p3cont_bcde_err);
+zxn_p3call_define_cont(zxn_p3cont_c);
+zxn_p3call_define_cont(zxn_p3cont_c_err);
+zxn_p3call_define_cont(zxn_p3cont_d);
+zxn_p3call_define_cont(zxn_p3cont_d_err);
+zxn_p3call_define_cont(zxn_p3cont_de);
+zxn_p3call_define_cont(zxn_p3cont_de_err);
+zxn_p3call_define_cont(zxn_p3cont_dehl);
+zxn_p3call_define_cont(zxn_p3cont_dehl_err);
+zxn_p3call_define_cont(zxn_p3cont_e);
+zxn_p3call_define_cont(zxn_p3cont_e_err);
+zxn_p3call_define_cont(zxn_p3cont_errcheck);
+zxn_p3call_define_cont(zxn_p3cont_errcheck_err);
+zxn_p3call_define_cont(zxn_p3cont_f);
+zxn_p3call_define_cont(zxn_p3cont_f_err);
+zxn_p3call_define_cont(zxn_p3cont_h);
+zxn_p3call_define_cont(zxn_p3cont_h_err);
+zxn_p3call_define_cont(zxn_p3cont_hl);
+zxn_p3call_define_cont(zxn_p3cont_hl_err);
+zxn_p3call_define_cont(zxn_p3cont_ix);
+zxn_p3call_define_cont(zxn_p3cont_ix_err);
+zxn_p3call_define_cont(zxn_p3cont_l);
+zxn_p3call_define_cont(zxn_p3cont_l_err);
+zxn_p3call_define_cont(zxn_p3cont_null);
+zxn_p3call_define_cont(zxn_p3cont_err);
+zxn_p3call_define_cont(zxn_p3cont_generic);
 
 extern struct zxn_ide_regset zxn_p3call_results;
 
