@@ -9,15 +9,6 @@ extern long zxn_p3call_long(void* cont, short callno, short himem,
 			    short a, short bc, short de, short hl, 
 			    short ix) __smallc __z88dk_callee;
 
-struct zxn_ide_regset {
-    char f;
-    char a;
-    short bc;
-    short de;
-    short hl;
-    short ix;
-};
-
 /* The "continuation function" provided to zxn_p3call is passed all the
  * registers resulting from the call, and chooses what to return.
  * Multiple predefined continuation functions are provided, but you
@@ -69,10 +60,18 @@ zxn_p3call_define_cont(zxn_p3cont_null);
 zxn_p3call_define_cont(zxn_p3cont_err);
 zxn_p3call_define_cont(zxn_p3cont_generic);
 
-extern struct zxn_ide_regset zxn_p3call_results;
-
 extern char zxn_p3call_err;
 
+struct zxn_p3call_regset {
+    char f;
+    char a;
+    short bc;
+    short de;
+    short hl;
+    short ix;
+};
+
+extern struct zxn_p3call_regset zxn_p3call_results;
 
 /*
  * ZXN_DOS_VERSION (0x0103) [HiMem = 7]
