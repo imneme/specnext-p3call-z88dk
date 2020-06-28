@@ -1,3 +1,7 @@
+# ZX Spectrum files
+*.tap
+*.bin
+
 # Prerequisites
 *.d
 
