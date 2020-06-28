@@ -10,10 +10,11 @@ static char buffer[256] = "Sausages";
 
 int main()
 {
-//    zxn_rom3_plot_sub(50,50);
-    zxn_rom3call(zxn_p3cont_null, ZXN_ROM3_PLOT_SUB, 0, \
-                 0x4200, 0x1234, 0x2345, 0x3456, 0x4567);
+    int i;
     printf("Hello World\n");
+    for (i = 0; i < 256; ++i)
+	zxn_rom3_plot_sub(i,i/2);
+    zxn_rom3_beeper(0x0085, 0x066a);
     return 0;
 }
 
