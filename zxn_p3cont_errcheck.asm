@@ -3,8 +3,8 @@
         SECTION data_compiler
 	GLOBAL	_zxn_p3call_err
 
-; _zxn_p3call_err:
-; 	defb	0
+_zxn_p3call_err:
+	defb	0
 
 	SECTION code_compiler
 	GLOBAL  zxn_p3cont_errcheck
