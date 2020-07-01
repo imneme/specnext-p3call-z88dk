@@ -17,6 +17,8 @@ int main()
 	exit(1);
     }
     window_handle = zxn_p3call_results.ix;
+    printf("Mode has %d lines and %d cols\n", zxn_p3call_results.hl >> 8, 
+	   zxn_p3call_results.hl & 0xff);    
     printf("Integer variable Z = %d\n", zxn_ide_integer_var('Z',0,0));
     zxn_ide_integer_var('X',1,42);
     printf("Integer variable X set to 42\n");
